@@ -28,12 +28,11 @@ call plug#end()
 set nu
 set relativenumber
 set ignorecase
-
 let mapleader="\<SPACE>"
 
 " best mapping ever
 inoremap <expr> jk col(".") == 1 ? '<Esc>' : '<Esc><Right>'
-" moving thing around
+" moving things around
 inoremap <A-j> <Esc>:m+<Cr>i
 inoremap <A-k> <Esc>:m-2<Cr>i
 nnoremap <A-j> :m+<Cr>
