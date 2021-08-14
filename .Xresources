@@ -51,3 +51,5 @@ xterm*VT100.Translations: #override \
                  Ctrl Shift <Key>C:    copy-selection(CLIPBOARD) \n\
                  Ctrl <Key> minus: smaller-vt-font() \n\
                  Ctrl <Key> plus: larger-vt-font() \n\
+XTerm*metaSendsEscape: true
+XTerm*eightBitInput: false
