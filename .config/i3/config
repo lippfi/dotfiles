@@ -28,6 +28,8 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec xterm
+set $tmux exec --no-startup-id "tmux has-session -t default || xterm -e tmux new -s default"
+bindsym $mod+t $tmux
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -59,10 +61,10 @@ exec --no-startup-id setxkbmap us,ru -option 'grp:alt_shift_toggle'
 # Start Applications
 bindsym $mod+i exec /opt/idea-IU-212.4746.92/bin/idea.sh
 bindsym $mod+v exec pavucontrol
-bindsym $mod+t exec telegram-desktop
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+Shift+Return exec qutebrowser
 bindsym $mod+F3 exec pcmanfm
+bindsym $mod+F4 exec /opt/DiscordCanary/DiscordCanary
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+F5 exec terminal -e 'mocp'
