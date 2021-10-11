@@ -27,8 +27,8 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xterm
-set $tmux exec --no-startup-id "tmux has-session -t default || xterm -e tmux new -s default"
+bindsym $mod+Return exec alacritty
+set $tmux exec --no-startup-id "tmux has-session -t default || alacritty -e tmux new -s default"
 bindsym $mod+t $tmux
 
 # kill focused window
@@ -59,7 +59,7 @@ exec --no-startup-id setxkbmap us,ru -option 'grp:alt_shift_toggle'
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+i exec /opt/idea-IU-212.4746.92/bin/idea.sh
+bindsym $mod+i exec /opt/jetbrains-toolbox-1.21.9712/jetbrains-toolbox
 bindsym $mod+v exec pavucontrol
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+Shift+Return exec qutebrowser
@@ -206,6 +206,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
+for_window [class="jetbrains-idea" title="win0"] floating enable;
+# for_window [title="JetBrains Toolbox"] move position 1480 px -23 px;
 for_window [title="File Transfer*"] floating enable
 for_window [class="fpakman"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
