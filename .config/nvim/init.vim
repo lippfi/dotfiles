@@ -39,7 +39,7 @@ if (has('ide'))
 
   map <A-j> <Action>(MoveLineDown)
   map <A-k> <Action>(MoveLineUp)
-else 
+endif
 
 " ideaVim ignore -- this makes parsing faster
 set autoindent
@@ -148,5 +148,4 @@ lua << EOF
   require('telescope').load_extension('coc')
 EOF
 " ideaVim ignore end
-endif
 
