@@ -82,7 +82,7 @@ vnoremap <A-j> :m '>+1<Cr>gv
 vnoremap <A-k> :m '<-2<Cr>gv
 
 " VIM-1530
-vnoremap <C-A> :call IncrementWholeLine()<CR>
+vnoremap <C-A> :s/\d\+/\=submatch(0)+1/g<CR>:nohl<CR>
 vnoremap g<C-A> :call IncrementWholeLine()<CR>
 
 " works same as vim's default g<C-A> but increments not only the first number,
