@@ -18,6 +18,7 @@ nnoremap S :%s/
 nnoremap x "_x
 nnoremap \ <C-w>
 
+
 if (has('ide'))
   set ideajoin
   set ideastatusicon=gray
@@ -62,7 +63,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/gv.vim'
 
     " kotlin
-    " Plug 'udalov/kotlin-vim'
+    Plug 'udalov/kotlin-vim'
 
     " telescope requirements...
     " do not forget to install ripgrep (pacman knows about it)
@@ -79,6 +80,21 @@ call plug#end()
 " VIM-2428 
 vnoremap <A-j> :m '>+1<Cr>gv
 vnoremap <A-k> :m '<-2<Cr>gv
+
+" VIM-1530
+vnoremap <C-A> :call IncrementWholeLine()<CR>
+vnoremap g<C-A> :call IncrementWholeLine()<CR>
+
+" works same as vim's default g<C-A> but increments not only the first number,
+" but all the numbers in selection
+" e.g.
+"           val ch1 = tree.getChild(0)                              val ch1 = tree.getChild(0)
+"<selection>val ch1 = tree.getChild(0)              ---g<C-A>-->    val ch2 = tree.getChild(1)
+"           val ch1 = tree.getChild(0)</selection>                  val ch3 = tree.getChild(2)
+function! IncrementWholeLine() range
+  execute ":'<,'>s/\\d\\+/\\=submatch(0)+line('.')-a:firstline+1/g"
+  execute ":nohl"
+endfunction
 
 " telescope
 nnoremap <leader>f <cmd>Telescope find_files<cr>
