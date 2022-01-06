@@ -1,0 +1,50 @@
+################################################################################
+# Autostart applications
+################################################################################
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id clipit
+exec --no-startup-id start_conky_maia
+
+
+
+
+
+################################################################################
+# Screens
+################################################################################
+# set lDisplay DP-2
+# set rDisplay HDMI-1
+set $lDisplay DisplayPort-1
+set $rDisplay HDMI-A-0
+workspace 1 output $rDisplay
+workspace 2 output $rDisplay
+workspace 3 output $rDisplay
+workspace 4 output $rDisplay
+workspace 5 output $lDisplay
+workspace 6 output $lDisplay
+workspace 7 output $lDisplay
+workspace 8 output $lDisplay
+
+
+
+
+
+################################################################################
+# Mouse
+################################################################################
+# Left-handed mouse
+exec --no-startup-id xmodmap -e "pointer = 3 2 1"
+# Numpad as mouse
+exec --no-startup-id setxkbmap -option keypad:pointerkeys
+
+
+
+
+
+################################################################################
+# Binding keys
+################################################################################
+# Lock screen
+bindsym $mod+9 exec --no-startup-id blurlock -u
