@@ -12,6 +12,7 @@ smart_borders on
 ################################################################################
 bindsym $mod+9 exec --no-startup-id i3lock -u -B 5
 bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+i exec /opt/jetbrains-toolbox-1.22.10970/jetbrains-toolbox
 
 
 

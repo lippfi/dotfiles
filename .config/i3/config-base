@@ -38,7 +38,6 @@ bindsym $mod+Shift+Return exec qutebrowser
 bindsym $mod+t exec telegram-desktop
 bindsym $mod+p exec --no-startup-id passmenu
 bindsym $mod+v exec pavucontrol
-bindsym $mod+i exec /opt/jetbrains-toolbox-1.21.9712/jetbrains-toolbox
 bindsym $mod+F3 exec alacritty -e ranger
 # Screenshots
 bindsym Print exec --no-startup-id scrot
