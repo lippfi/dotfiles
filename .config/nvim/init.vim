@@ -1,8 +1,10 @@
 set nu
+set hlsearch
 set relativenumber
 set ignorecase
 set smartcase
 set clipboard+=unnamedplus
+set scrolloff=5
 let mapleader= " "
 
 " best mapping ever
@@ -18,6 +20,26 @@ nnoremap S :%s/
 nnoremap x "_x
 nnoremap \ <C-w>
 
+vnoremap <C-A> :s/\d\+/\=submatch(0)+1/g<CR>:nohl<CR>
+vnoremap g<C-A> :call IncrementWholeLine()<CR>
+
+
+" works same as vim's default g<C-A> but increments not only the first number,
+" but all the numbers in selection
+" e.g.
+"           val ch1 = tree.getChild(0)                              val ch1 = tree.getChild(0)
+"<selection>val ch1 = tree.getChild(0)              ---g<C-A>-->    val ch2 = tree.getChild(1)
+"           val ch1 = tree.getChild(0)</selection>                  val ch3 = tree.getChild(2)
+function! IncrementWholeLine() range
+  if has('ide')
+    execute "'<,'>s/\\d\\+/\\=submatch(0)+line('.')-a:firstline+1/g"
+  else
+    " requires %V support :<
+    execute "'<,'>s/\\%V\\d\\+\\%V/\\=submatch(0)+line('.')-a:firstline+1/g"
+  endif
+  noh
+endfunction
+
 
 if (has('ide'))
   set ideajoin
@@ -27,8 +49,8 @@ if (has('ide'))
   set easymotion
   set surround
   set ReplaceWithRegister
-
-  nnoremap nt :NERDTree<Cr>
+  
+  nnoremap nt :NERDTreeToggle<Cr>
   map <leader>f <Action>(GotoFile)
   map <leader>g <Action>(FindInPath)
   map <leader>b <Action>(Switcher)
@@ -42,13 +64,16 @@ if (has('ide'))
   map <A-k> <Action>(MoveLineUp)
 endif
 
-" ideaVim ignore -- this makes parsing faster
+" ideaVim ignore
+" the "ideaVim ignore" comment helps IdeaVim's parser to skip redundant lines
+" what makes .vimrc parsing and IDE startup faster
 set autoindent
 set nowrap
 set smarttab
 set expandtab
 set tabstop=2
 set shiftwidth=2
+set colorcolumn=80
 
 call plug#begin('~/.config/nvim/plugged')
     Plug 'mbbill/undotree'
@@ -62,50 +87,22 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'junegunn/gv.vim'
 
-    " kotlin
-    Plug 'udalov/kotlin-vim'
+    " latex
+    Plug 'lervag/vimtex'
 
-    " telescope requirements...
-    " do not forget to install ripgrep (pacman knows about it)
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzy-native.nvim'
-    Plug 'fannheyward/telescope-coc.nvim'
-    
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'nvim-treesitter/nvim-treesitter'
+    " much better search highlighting
+    Plug 'qxxxb/vim-searchhi'
 call plug#end()
 
 " VIM-2428 
 vnoremap <A-j> :m '>+1<Cr>gv
 vnoremap <A-k> :m '<-2<Cr>gv
 
-" VIM-1530
-vnoremap <C-A> :s/\d\+/\=submatch(0)+1/g<CR>:nohl<CR>
-vnoremap g<C-A> :call IncrementWholeLine()<CR>
-
-" works same as vim's default g<C-A> but increments not only the first number,
-" but all the numbers in selection
-" e.g.
-"           val ch1 = tree.getChild(0)                              val ch1 = tree.getChild(0)
-"<selection>val ch1 = tree.getChild(0)              ---g<C-A>-->    val ch2 = tree.getChild(1)
-"           val ch1 = tree.getChild(0)</selection>                  val ch3 = tree.getChild(2)
-function! IncrementWholeLine() range
-  execute ":'<,'>s/\\d\\+/\\=submatch(0)+line('.')-a:firstline+1/g"
-  execute ":nohl"
-endfunction
-
 " telescope
-nnoremap <leader>f <cmd>Telescope find_files<cr>
-nnoremap <leader>g <cmd>Telescope live_grep<cr>
-nnoremap <leader>b <cmd>Telescope buffers<cr>
-nnoremap <leader>h <cmd>Telescope help_tags<cr>
-
-" coc
-source $HOME/.config/nvim/plug-config/coc.vim
-map <leader>r <cmd>Telescope coc references<cr>
-map <leader>d <Plug>(coc-definition)
+" nnoremap <leader>f <cmd>Telescope find_files<cr>
+" nnoremap <leader>g <cmd>Telescope live_grep<cr>
+" nnoremap <leader>b <cmd>Telescope buffers<cr>
+" nnoremap <leader>h <cmd>Telescope help_tags<cr>
 
 " undotree
 nnoremap <leader>u <cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>
@@ -115,53 +112,29 @@ set bg=dark
 colorscheme gruvbox
 let g:airline_theme='angr'
 
-" telescope default config
-lua << EOF
-  require('telescope').setup{
-    defaults = {
-      vimgrep_arguments = {
-        'rg',
-        '--color=never',
-        '--no-heading',
-        '--with-filename',
-        '--line-number',
-        '--column',
-        '--smart-case'
-      },
-      prompt_prefix = "> ",
-      selection_caret = "> ",
-      entry_prefix = "  ",
-      initial_mode = "insert",
-      selection_strategy = "reset",
-      sorting_strategy = "descending",
-      layout_strategy = "horizontal",
-      layout_config = {
-        horizontal = {
-          mirror = false,
-        },
-        vertical = {
-          mirror = false,
-        },
-      },
-      file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-      file_ignore_patterns = {},
-      generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-      winblend = 0,
-      border = {},
-      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-      color_devicons = true,
-      use_less = true,
-      path_display = {},
-      set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-      file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-      grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-      qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+" fancy search
+nmap n <Plug>(searchhi-n)
+nmap N <Plug>(searchhi-N)
+nmap * <Plug>(searchhi-*)
+nmap g* <Plug>(searchhi-g*)
+nmap # <Plug>(searchhi-#)
+nmap g# <Plug>(searchhi-g#)
+nmap gd <Plug>(searchhi-gd)
+nmap gD <Plug>(searchhi-gD)
+vmap n <Plug>(searchhi-v-n)
+vmap N <Plug>(searchhi-v-N)
+vmap * <Plug>(searchhi-v-*)
+vmap g* <Plug>(searchhi-v-g*)
+vmap # <Plug>(searchhi-v-#)
+vmap g# <Plug>(searchhi-v-g#)
+vmap gd <Plug>(searchhi-v-gd)
+vmap gD <Plug>(searchhi-v-gD)
+nmap <silent> <C-L> <Plug>(searchhi-clear-all)
+vmap <silent> <C-L> <Plug>(searchhi-v-clear-all)
+let g:searchhi_user_autocmds_enabled = 1
+let g:searchhi_redraw_before_on = 1
 
-      -- Developer configurations: Not meant for general override
-      buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-    }
-  }
-  require('telescope').load_extension('coc')
-EOF
+command Tex VimtexCompile
+let g:vimtex_view_method = 'zathura'
 " ideaVim ignore end
 
