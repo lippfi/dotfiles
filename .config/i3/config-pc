@@ -46,5 +46,5 @@ exec --no-startup-id setxkbmap -option keypad:pointerkeys
 ################################################################################
 # Binding keys
 ################################################################################
-# Lock screen
+bindsym $mod+d exec --no-startup-id dmenu_recency
 bindsym $mod+9 exec --no-startup-id blurlock -u
