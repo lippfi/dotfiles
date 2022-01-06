@@ -4,6 +4,16 @@
 
 [[ $- != *i* ]] && return
 
+export IS_LAPTOP=true
+if ${IS_LAPTOP} ; then
+  cat $HOME/.config/i3/config-base \
+      $HOME/.config/i3/config-laptop > $HOME/.config/i3/config
+  export QT_AUTO_SCREEN_SCALE_FACTOR=1
+else
+  cat $HOME/.config/i3/config-base \
+      $HOME/.config/i3/config-pc > $HOME/.config/i3/config
+fi
+
 colors() {
 	local fgc bgc vals seq0
 
