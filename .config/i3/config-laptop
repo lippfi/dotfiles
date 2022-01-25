@@ -10,7 +10,7 @@ smart_borders on
 ################################################################################
 # Binding keys
 ################################################################################
-bindsym $mod+9 exec --no-startup-id i3lock -u -B 5
+bindsym $mod+9 exec --no-startup-id i3lock -u -i ~/Pictures/wallpaper/mountain1_locked.jpg
 bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+i exec /opt/jetbrains-toolbox-1.22.10970/jetbrains-toolbox
 
@@ -32,7 +32,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 # Autostart applications
 ################################################################################
 # I don't know why, but it's required... (DPI)
-exec --no-startup-id xrdb ~/.Xresources
+# exec --no-startup-id xrdb ~/.Xresources
 
 
 
