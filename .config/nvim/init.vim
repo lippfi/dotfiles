@@ -12,12 +12,9 @@ inoremap <expr> jk col(".") == 1 ? '<Esc>' : '<Esc><Right>'
 " moving things around
 inoremap <A-j> <Esc>:m+<Cr>i
 inoremap <A-k> <Esc>:m-2<Cr>i
-nnoremap <A-j> :m+<Cr>
-nnoremap <A-k> :m-2<Cr>
 
 nnoremap U <C-R>
 nnoremap S :%s/
-nnoremap x "_x
 nnoremap \ <C-w>
 
 vnoremap <C-A> :s/\d\+/\=submatch(0)+1/g<CR>:nohl<CR>
@@ -42,6 +39,8 @@ endfunction
 
 
 if (has('ide'))
+  sethandler a:vim
+
   set ideajoin
   set ideastatusicon=gray
   set idearefactormode=keep
@@ -49,6 +48,7 @@ if (has('ide'))
   set easymotion
   set surround
   set ReplaceWithRegister
+  set noideadelaymacro
   
   nnoremap nt :NERDTreeToggle<Cr>
   map <leader>f <Action>(GotoFile)
@@ -62,6 +62,11 @@ if (has('ide'))
 
   map <A-j> <Action>(MoveLineDown)
   map <A-k> <Action>(MoveLineUp)
+
+  nnoremap <C-j> :tabnext<CR>
+  nnoremap <C-k> :tabNext<CR>
+  nnoremap <C-S-j> :tabmove +1<CR>
+  nnoremap <C-S-k> :tabmove -1<CR>
 endif
 
 " ideaVim ignore
