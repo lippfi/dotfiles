@@ -12,6 +12,8 @@ inoremap <expr> jk col(".") == 1 ? '<Esc>' : '<Esc><Right>'
 " moving things around
 inoremap <A-j> <Esc>:m+<Cr>i
 inoremap <A-k> <Esc>:m-2<Cr>i
+nnoremap <A-j> :m+<Cr>
+nnoremap <A-k> :m-2<Cr>
 
 nnoremap U <C-R>
 nnoremap S :%s/
