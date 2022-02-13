@@ -40,9 +40,9 @@ bindsym $mod+p exec --no-startup-id passmenu
 bindsym $mod+v exec pavucontrol
 bindsym $mod+F3 exec alacritty -e ranger
 # Screenshots
-bindsym Print exec --no-startup-id scrot
-bindsym $mod+Print --release exec --no-startup-id scrot -w
-bindsym $mod+Shift+Print --release exec --no-startup-id scrot -s
+bindsym Print exec --no-startup-id scrot ~/Pictures/Screenshots/%b%d::%H%M%S.png
+bindsym $mod+Print --release exec --no-startup-id scrot -w ~/Pictures/Screenshots/%b%d::%H%M%S.png
+bindsym $mod+Shift+Print --release exec --no-startup-id scrot -s ~/Pictures/Screenshots/%b%d::%H%M%S.png
 
 # change focus
 bindsym $mod+h focus left
