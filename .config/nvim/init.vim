@@ -8,36 +8,27 @@ set scrolloff=5
 let mapleader= " "
 
 " best mapping ever
-inoremap <expr> jk col(".") == 1 ? '<Esc>' : '<Esc><Right>'
+inoremap <expr> <Esc> (col(".") == 1 ? '<Esc>' : '<Esc><Right>')
+"      \.. ':!setxkbmap -layout us,ru<CR><C-L>' TODO
+imap jk <Esc>
 " moving things around
 inoremap <A-j> <Esc>:m+<Cr>i
 inoremap <A-k> <Esc>:m-2<Cr>i
 nnoremap <A-j> :m+<Cr>
 nnoremap <A-k> :m-2<Cr>
 
+nnoremap Y y$
 nnoremap U <C-R>
 nnoremap S :%s/
 nnoremap \ <C-w>
 
+source ~/.config/ideavim/functions.vim
 vnoremap <C-A> :s/\d\+/\=submatch(0)+1/g<CR>:nohl<CR>
 vnoremap g<C-A> :call IncrementWholeLine()<CR>
-
-
-" works same as vim's default g<C-A> but increments not only the first number,
-" but all the numbers in selection
-" e.g.
-"           val ch1 = tree.getChild(0)                              val ch1 = tree.getChild(0)
-"<selection>val ch1 = tree.getChild(0)              ---g<C-A>-->    val ch2 = tree.getChild(1)
-"           val ch1 = tree.getChild(0)</selection>                  val ch3 = tree.getChild(2)
-function! IncrementWholeLine() range
-  if has('ide')
-    execute "'<,'>s/\\d\\+/\\=submatch(0)+line('.')-a:firstline+1/g"
-  else
-    " requires %V support :<
-    execute "'<,'>s/\\%V\\d\\+\\%V/\\=submatch(0)+line('.')-a:firstline+1/g"
-  endif
-  noh
-endfunction
+nnoremap ! :call Invert(0)<CR>
+vnoremap ! :<C-u>call Invert(1)<CR>
+vnoremap u :<C-u>call ToCamelCase()<CR>
+vnoremap U :<C-u>call ToSnakeCase()<CR>
 
 
 if (has('ide'))
@@ -47,10 +38,12 @@ if (has('ide'))
   set ideastatusicon=gray
   set idearefactormode=keep
   set NERDTree
-  set easymotion
   set surround
   set ReplaceWithRegister
   set noideadelaymacro
+
+  " VIM-2433
+  set clipboard-=ideaput
   
   nnoremap nt :NERDTreeToggle<Cr>
   map <leader>f <Action>(GotoFile)
@@ -99,17 +92,13 @@ call plug#begin('~/.config/nvim/plugged')
 
     " much better search highlighting
     Plug 'qxxxb/vim-searchhi'
+
+    Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 " VIM-2428 
 vnoremap <A-j> :m '>+1<Cr>gv
 vnoremap <A-k> :m '<-2<Cr>gv
-
-" telescope
-" nnoremap <leader>f <cmd>Telescope find_files<cr>
-" nnoremap <leader>g <cmd>Telescope live_grep<cr>
-" nnoremap <leader>b <cmd>Telescope buffers<cr>
-" nnoremap <leader>h <cmd>Telescope help_tags<cr>
 
 " undotree
 nnoremap <leader>u <cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>
