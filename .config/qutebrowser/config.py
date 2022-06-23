@@ -301,7 +301,6 @@ c.colors.tabs.selected.even.bg = base02
 config.bind('<Ctrl-Shift-J>', 'tab-move +')
 config.bind('<Ctrl-Shift-K>', 'tab-move -')
 
-c.auto_save.session = True
 c.completion.show = "auto"
 c.url.searchengines = {"DEFAULT": "https://www.google.com/search?q={}"}
 
