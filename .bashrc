@@ -148,6 +148,8 @@ ex ()
   fi
 }
 bind '"jk":vi-movement-mode'
+setxkbmap -option caps:swapescape
+setxkbmap us,ru -option 'grp:alt_shift_toggle'
 
 alias vim="nvim"
 alias nvpn="nordvpn"
@@ -156,3 +158,4 @@ alias nvnp="nordvpn"
 alias dotfiles="/usr/bin/git --git-dir=/home/filipp/dotfiles/ --work-tree=/home/filipp"
 alias showkeys="screenkey -p fixed -t 0.7 -g 30%x10%+165%-7% --scr 1 -s small -f 12 >/dev/null 2>/dev/null"
 alias postman="/opt/Postman/Postman >/dev/null 2>/dev/null &"
+. "$HOME/.cargo/env"
