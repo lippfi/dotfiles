@@ -144,16 +144,6 @@ exec --no-startup-id unclutter --timeout 1
 
 
 ################################################################################
-# Keyboard
-################################################################################
-# Russian layout
-exec --no-startup-id setxkbmap us,ru -option 'grp:alt_shift_toggle'
-
-
-
-
-
-################################################################################
 # Window customizations
 ################################################################################
 # Open specific applications in floating mode
