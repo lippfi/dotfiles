@@ -32,18 +32,3 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-
-
-
-
-
-################################################################################
-# Autostart applications
-################################################################################
-# I don't know why, but it's required... (DPI)
-exec --no-startup-id xrdb ~/.Xresources
-
-
-
-
-
