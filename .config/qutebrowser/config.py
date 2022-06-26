@@ -303,4 +303,5 @@ config.bind('<Ctrl-Shift-K>', 'tab-move -')
 
 c.completion.show = "auto"
 c.url.searchengines = {"DEFAULT": "https://www.google.com/search?q={}"}
-
+c.url.start_pages = "https://google.com"
+c.tabs.favicons.show = "pinned"
