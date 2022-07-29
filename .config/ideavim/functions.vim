@@ -25,6 +25,10 @@ function! Split(text, delimeter)
   return parts
 endfunction
 
+" This function replaces snake case word under caret with its camel case
+" version (it's like Vim's `u` keypress, but better)
+" e.g. snake_case -> snakeCase
+" e.g. SNAKE_CASE -> snakeCase
 function! ToCamelCase()
   let capitalize = 0
   
@@ -40,6 +44,9 @@ function! ToCamelCase()
   execute 'normal gvc' .. result 
 endfunction
 
+" This function replaces camel case word under caret with its capitalized snake 
+" case version (it's like Vim's `U` keypress, but better)
+" e.g. camelCase -> CAMEL_CASE
 function! ToSnakeCase()
   normal gv"wy
   let wordUnderCaret = @w
@@ -61,6 +68,9 @@ function! ToSnakeCase()
   execute 'normal gvc' .. join(parts, '_')
 endfunction
 
+" This function replaces the word under caret with it's antonym
+" e.g. true -> false
+" e.g. firt -> last
 function! Invert(calledFromVisual)
   let antonyms = [
                    \'true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last',
